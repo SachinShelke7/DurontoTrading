@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Duronto Trading</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #0f0f0f;
+        font-family: "Segoe UI", sans-serif;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Header */
+      header {
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* background: rgba(26, 26, 26,0.9); */
+        /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); */
+        position: relative;
+      }
+
+      header h1 {
+        font-size:1.5rem;
+        background: linear-gradient(90deg, #00ffe0, #00bfff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0;
+        padding-left: 20px;
+    }
+    
+    nav ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav ul li {
+        margin-left: 20px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      nav ul li:hover a {
+        color: #00ffe0;
+      }
+
+      /* Submenu (on hover) */
+      nav ul li:hover .submenu {
+        display: block;
+      }
+
+      .submenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 8px;
+        padding: 10px;
+        display: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+      }
+
+      .submenu a {
+        color: #fff !important;
+        padding: 10px;
+        text-decoration: none;
+        display: block;
+        white-space: nowrap;
+      }
+
+      .submenu a:hover {
+        color: #00ffe0 !important;
+      }
+
+      /* About Section */
+      .about-section {
+        width: 100%;
+        max-width: 1200px;
+        padding: 40px;
+        text-align: center;
+        margin-top: 40px;
+        /* background: rgba(0, 0, 0, 0.6); */
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); */
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .about-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .about-section p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        width: 100%;
+        max-width: 1200px;
+        margin-top: 40px;
+        padding: 40px;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      .contact-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-section form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .contact-section input,
+      .contact-section textarea {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 1rem;
+      }
+
+      .contact-section button {
+        padding: 12px 20px;
+        background: #00ffe0;
+        color: #000;
+        font-weight: bold;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .contact-section button:hover {
+        background: #00bfff;
+      }
+
+      /* Courses Section */
+      .courses-section {
+        width: 100%;
+        max-width: 1200px;
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        flex-wrap: wrap;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .course-card {
+        background: rgba(250, 250, 250, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 20px;
+        width: 250px;
+        text-align: left;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        opacity: 0;
+        animation: fadeInUp 0.5s forwards;
+        border: 1px solid #fff;
+      }
+
+      .course-card h3 {
+        font-size: 1.8rem;
+        color: #00ffe0;
+      }
+
+      .course-card p {
+        font-size: 1rem;
+        margin: 10px 0;
+      }
+
+      .course-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .course-card ul li {
+        font-size: 0.9rem;
+        color: #bebebe;
+        margin-bottom: 5px;
+      }
+
+      .course-card .price {
+        font-size: 1.4rem;
+        color: #00ffe0;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+
+      .course-card a {
+        color: #00ffe0;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .course-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+
+      .course-card:hover {
+        border: 1px solid #00ffe0;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 50px;
+        padding: 20px;
+        background: #1a1a1a;
+        width: 100%;
+        text-align: center;
+        color: #ccc;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      footer p {
+        font-size: 1rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .courses-section {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .course-card {
+          width: 90%;
+          margin: 10px 0;
+        }
+
+        header h1 {
+          font-size: 1.5rem;
+        }
+      }
+      .glow {
+        position: fixed;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 191, 255, 0.4),
+          transparent 70%
+        );
+        animation: pulse 4s infinite;
+        z-index: -1;
+      }
+
+      .glow1 {
+        top: 20%;
+        left: 10%;
+      }
+
+      .glow2 {
+        bottom: 15%;
+        right: 10%;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.6);
+          opacity: 0.4;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+      }
+      .buy-now {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        
+      }
+      .buy-now:hover{
+        scale: 0.95;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+  
+      @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>Duronto Trading</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="#courses">Courses</a>
+            <div class="submenu">
+              <a href="#silver-course">Silver Course</a>
+              <a href="#gold-course">Gold Course</a>
+              <a href="#diamond-course">Diamond Course</a>
+            </div>
+          </li>
+          <li><a href="#about-us">About Us</a></li>
+          <li><a href="#contact-us">Contact Us</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
+<!-- Hero Section -->
+<section id="hero" style="color: white; padding: 80px 20px 100px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: space-between;">
+      
+      <!-- Text Content -->
+      <div style="flex: 1 1 500px;">
+        <h1 style="font-size: 48px; background: linear-gradient(to right, #00ffe0, #00bfff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeIn 1.5s ease;">
+          Learn to Trade <br> Like a Pro
+        </h1>
+        <p style="margin-top: 20px; font-size: 18px; color: #ccc; max-width: 500px; animation: fadeIn 2s ease;">
+          Master the markets with expert strategies, hands-on guidance, and step-by-step mentorship in binary, crypto, and forex trading.
+        </p>
+        <a href="#courses" style="display: inline-block; margin-top: 30px; padding: 14px 28px; background: linear-gradient(to right, #00ffe0, #00bfff); color: #000; border-radius: 12px; text-decoration: none; font-weight: bold; animation: fadeIn 2.5s ease;">
+          Explore Courses
+        </a>
+      </div>
+  
+      <!-- Hero Image -->
+      <div style="flex: 1 1 500px; text-align: center;">
+        <img src="/dt.jpg" alt="Trading Illustration" 
+             style="width: 100%; max-width: 500px; border-radius: 20px;">
+      
+            </div>
+    </div>
+  </section>
+  
+    <!-- Courses Section -->
+    <section id="courses" class="courses-section">
+      <div class="course-card" id="silver-course">
+        <img src="/c1.jpg" alt="Silver Course" />
+        <!-- <img src="https://placehold.co/250x150" alt="Silver Course"> -->
+        <h3>Silver Course</h3>
+        <p>Basic level trading techniques for beginners.</p>
+        <ul>
+          <li>Market fundamentals</li>
+          <li>Chart analysis</li>
+          <li>Risk management</li>
+        </ul>
+        <div class="buy-now">
+          <a class="price">More Details</a>
+        </div>
+      </div>
+
+      <div class="course-card" id="gold-course">
+        <img src="c2.jpg" alt="Gold Course" />
+        <h3>Gold Course</h3>
+        <p>Intermediate level strategies and tools for effective trading.</p>
+        <ul>
+          <li>Advanced chart patterns</li>
+          <li>Trading psychology</li>
+          <li>Risk mitigation</li>
+        </ul>
+        <div class="buy-now">
+          <a class="price">More Details</a>
+        </div>
+      </div>
+
+      <div class="course-card" id="diamond-course">
+        <img src="c3.webp" alt="Diamond Course" />
+        <h3>Diamond Course</h3>
+        <p>Expert level strategies to master trading in any market.</p>
+        <ul>
+          <li>Algorithmic trading</li>
+          <li>Portfolio management</li>
+          <li>Market forecasting</li>
+        </ul>
+        <div class="buy-now">
+          <a class="price">More Details</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us" class="about-section">
+      <h2>About Duronto Trading</h2>
+      <p>
+        We provide courses to help users analyze market conditions and make
+        informed trading decisions. Our training programs range from beginner to
+        expert level, covering various trading strategies and tools.
+      </p>
+    </section>
+
+    <!-- Contact Us Section -->
+    <!-- Contact Us Section -->
+    <section id="contact-us" style="padding: 60px 20px; color: white">
+      <div
+        style="
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 40px;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <!-- Left Image -->
+        <div style="flex: 1 1 400px; max-width: 500px">
+          <img
+            src="/bgg.jpg"
+            alt="Contact Us Image"
+            style="
+              width: 100%;
+              height: auto;
+              border-radius: 20px;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            "
+          />
+        </div>
+
+        <!-- Right Form -->
+        <div
+          style="
+            flex: 1 1 400px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            background-color: rgba(250, 250, 250, 0.02);
+          "
+        >
+          <h2 style="font-size: 28px; margin-bottom: 20px">Contact Us</h2>
+          <form>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              required
+              style="
+                width: 97%;
+                padding: 12px;
+                margin-bottom: 15px;
+                border: none;
+                border-radius: 10px;
+                background-color: rgba(250, 250, 250, 0.04);
+                color: white;
+              "
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+              style="
+                width: 97%;
+                padding: 12px;
+                margin-bottom: 15px;
+                border: none;
+                border-radius: 10px;
+                background-color: rgba(250, 250, 250, 0.04);
+                color: white;
+              "
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              rows="5"
+              required
+              style="
+                width: 97%;
+                padding: 12px;
+                margin-bottom: 15px;
+                border: none;
+                border-radius: 10px;
+                background-color: rgba(250, 250, 250, 0.04);
+                color: white;
+              "
+            ></textarea>
+            <button
+              type="submit"
+              style="
+                padding: 12px 24px;
+                background-color: #facc15;
+                color: #0f172a;
+                border: none;
+                border-radius: 10px;
+                font-weight: bold;
+                cursor: pointer;
+              "
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Website under construction. More will be added soon.</p>
+    </footer>
+  </body>
+</html>
